@@ -39,7 +39,10 @@ for argument in "${@}"; do
 done
 
 # Create temporary directory
-user_dir="$(mktemp --tmpdir="${unoconv_tmp_dir}" --directory unoconv.XXXXXXXX)"
+if ! user_dir="$(mktemp --tmpdir="${unoconv_tmp_dir}" --directory unoconv.XXXXXXXX)"
+then
+    exit 254
+fi
 
 # Try n-times to get a available port in given range
 lock_counter=0
